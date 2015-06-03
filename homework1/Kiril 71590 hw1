@@ -1,0 +1,148 @@
+#include <iostream>
+#include<iomanip>
+
+using namespace std;
+
+class Figure
+{
+protected:
+
+	double r;
+	double width, height;
+
+public:
+
+	virtual double area()
+	{
+		return 0;
+	}
+
+	void setR(double newR)
+	{
+		r = newR;
+	}
+
+	void setWidth(double newWidth)
+	{
+		width = newWidth;
+	}
+
+	void setHeight(double newHeight)
+	{
+		height= newHeight;
+	}
+
+
+};
+
+
+class Circle : public Figure
+{
+public:
+	double area()
+	{
+		return 3.14*r*r;
+	}
+
+
+
+};
+
+class Square : public Figure
+{
+public:
+	double area()
+	{
+		return width*width;
+	}
+
+
+
+};
+
+class Triangle : public Figure
+{
+public:
+	double area()
+	{
+		return width*height / 2;
+	}
+
+
+
+};
+
+
+void Shuffle(Figure *a[], int size)
+{
+	srand(time(NULL));
+
+	int x;
+	Figure *tempFigure;
+
+	for (int i = 0; i < size; i++) 
+	{
+		x = rand() % size;
+		tempFigure = a[i];
+		a[i] = a[x];
+		a[x] = tempFigure;
+	}
+}
+
+
+int main()
+{
+	
+	Figure *a[6];
+
+	Circle b;
+	b.setR(2);
+
+	Circle c;
+	c.setR(3);
+	
+	Square d;
+	d.setWidth(4);
+
+	Square e;
+	e.setWidth(5);
+
+	Triangle f;
+	f.setWidth(6);
+	f.setHeight(10);
+
+	Triangle g;
+	g.setWidth(6);
+	g.setHeight(6);
+
+	a[0] = &b;
+	a[1] = &c;
+	a[2] = &d;
+	a[3] = &e;
+	a[4] = &f;
+	a[5] = &g;
+
+	for (int i = 0; i < 6; i++)
+	{
+		cout << "The area of figure " << i << " = " << a[i]->area()<<endl;
+	}
+	
+	cout << endl;
+	cout << "After shuffling : " << endl;
+	cout << endl;
+
+	Shuffle(a, 6);
+
+	for (int i = 0; i < 6; i++)
+	{
+		cout << "The area of figure " << i << " = " << a[i]->area() << endl;
+	}
+
+	cout << endl;
+
+
+
+
+	system("pause");
+	return 0;
+}
